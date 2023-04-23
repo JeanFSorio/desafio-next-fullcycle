@@ -17,12 +17,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         })
         res.status(200).json(chat)
     } 
-    if (req.method == "GET") {
+    else if (req.method == "GET") {
         const chats = await prisma.chat.findMany();
         res.json(chats)
+    } else {
+        res.status(405).json({ message: "Not Allowed"})
     }
 
-    res.status(405).json({ message: "Not Allowed"})
 }
 
 export default handler;
